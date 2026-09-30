@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logan30-arch // Cybersecurity & Terminal Artiste</title>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #111827;
+            --accent-green: #00ff66;
+            --accent-cyan: #00e5ff;
+            --accent-pink: #ff007f;
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --border-color: #1e293b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Share Tech Mono', monospace;
+            line-height: 1.6;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* Scanlines Effect */
+        body::after {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+            z-index: 99999;
+            background-size: 100% 3px, 3px 100%;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            border: 2px dashed var(--accent-green);
+            background: var(--card-bg);
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 0 15px rgba(0, 255, 102, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background: rgba(0, 255, 102, 0.1);
+            border: 1px solid var(--accent-green);
+            color: var(--accent-green);
+            padding: 4px 12px;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: var(--accent-cyan);
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(0, 229, 255, 0.3);
+            font-family: 'VT323', monospace;
+            letter-spacing: 2px;
+        }
+
+        .tagline {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        section {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        section::before {
+            content: attr(data-section-title);
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: var(--bg-color);
+            padding: 0 10px;
+            color: var(--accent-green);
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            color: var(--accent-cyan);
+            margin-bottom: 15px;
+        }
+
+        p {
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .skill-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            transition: 0.3s;
+        }
+
+        .skill-item:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 8px rgba(0, 229, 255, 0.2);
+        }
+
+        .skill-name {
+            color: var(--accent-green);
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .skill-level {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .projects-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .project-card {
+            border-left: 3px solid var(--accent-pink);
+            background: rgba(255, 0, 127, 0.02);
+            padding: 15px;
+        }
+
+        .project-title {
+            color: var(--accent-pink);
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        /* Terminal Mini-Box */
+        .terminal-box {
+            background: #000;
+            border: 1px solid #333;
+            padding: 15px;
+            font-family: 'Share Tech Mono', monospace;
+            color: var(--accent-green);
+            margin-top: 15px;
+            position: relative;
+        }
+
+        .terminal-prompt {
+            color: var(--accent-cyan);
+        }
+
+        .interactive-btn {
+            background: transparent;
+            border: 1px solid var(--accent-green);
+            color: var(--accent-green);
+            padding: 8px 16px;
+            font-family: 'Share Tech Mono', monospace;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.2s;
+        }
+
+        .interactive-btn:hover {
+            background: var(--accent-green);
+            color: var(--bg-color);
+            box-shadow: 0 0 10px var(--accent-green);
+        }
+
+        footer {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 40px;
+            border-top: 1px dashed var(--border-color);
+            padding-top: 20px;
+        }
+
+        a {
+            color: var(--accent-cyan);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="status-badge">[STATUS: SECURELY PARANOID]</div>
+            <h1>Logan30-arch</h1>
+            <p class="tagline">Professional Button Clicker & Professional Vulnerability Finder (Mostly My Own)</p>
+        </header>
+
+        <!-- About Section -->
+        <section data-section-title="01 // WHO_AM_I">
+            <h2>System Identification</h2>
+            <p>Hello world, and welcome to my digital perimeter. I am <strong>Logan30-arch</strong>—a cybersecurity enthusiast who genuinely believes that turning it off and on again fixes 90% of network threats.</p>
+            <p>When I'm not inspecting suspicious packets or pretending I understand kernel configuration files, you can find me dodging script kiddies and optimizing my workflow around excessive amounts of caffeine.</p>
+        </section>
+
+        <!-- Skills Section -->
+        <section data-section-title="02 // CAPABILITIES">
+            <h2>Arsenal & Tech Stack</h2>
+            <div class="skills-grid">
+                <div class="skill-item">
+                    <div class="skill-name">&gt; Linux Arch-ery</div>
+                    <div class="skill-level">Level: "I use Arch, btw" (Proudly breaks system weekly)</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">&gt; Packet Interrogation</div>
+                    <div class="skill-level">Level: Staring intensely at Wireshark until it makes sense</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">&gt; Social Engineering Defense</div>
+                    <div class="skill-level">Level: Immune to free pizza scams (mostly)</div>
+                </div>
+                <div class="skill-item">
+                    <div class="skill-name">&gt; Code Disassembly</div>
+                    <div class="skill-level">Level: Turning working code into spaghetti since 2022</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section data-section-title="03 // DEPLOYED_EXPLOITS (PROJECTS)">
+            <h2>Selected Works</h2>
+            <div class="projects-list">
+                <div class="project-card">
+                    <div class="project-title">project_firewall_oops.sh</div>
+                    <p>A custom bash script designed to block all incoming traffic—including my own remote SSH connection. 100% effective defense mechanism.</p>
+                </div>
+                <div class="project-card">
+                    <div class="project-title">password_manager_9000.txt</div>
+                    <p>An elite, air-gapped secret repository saved right on the desktop as <code>password123_final_final.txt</code>. Maximum military-grade security.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Terminal Easter Egg -->
+        <section data-section-title="04 // INTERACTIVE_SHELL">
+            <h2>Live Diagnostics</h2>
+            <p>Click below to execute a mock threat scan on your current setup:</p>
+            <div class="terminal-box" id="terminal-output">
+                <span class="terminal-prompt">logan30@arch:~$</span> Type 'scan' or press the button below.
+            </div>
+            <button class="interactive-btn" onclick="runScan()">&gt; EXECUTE_DIAGNOSTICS.sh</button>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>Designed with ⚡ and a concerning amount of terminal tabs by Logan30-arch.</p>
+            <p><a href="https://github.com/Logan30-arch" target="_blank">&gt;&gt; GitHub Profile</a></p>
+        </footer>
+    </div>
+
+    <script>
+        function runScan() {
+            const output = document.getElementById('terminal-output');
+            output.innerHTML = `
+                <span class="terminal-prompt">logan30@arch:~$</span> ./run_scan.sh<br>
+                [+] Initializing cyber-tracers...<br>
+                [+] Scanning local coffee levels... <span style="color:var(--accent-pink);">CRITICAL LOW</span><br>
+                [+] Checking firewall integrity... Looks solid, taped it twice.<br>
+                [✓] Scan complete: Zero bugs found, only unexpected features. Have a nice day!
+            `;
+        }
+    </script>
+</body>
+</html>
